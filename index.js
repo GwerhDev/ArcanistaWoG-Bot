@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
-const { embedReq } = require("./commands/functions");
+const { embedReq, questsReq } = require("./commands/functions");
 const config = require("./config.json");
+const { commandList } = require("./misc/consts");
 const client = new Discord.Client();
 const prefix = "q-";
 
@@ -11,19 +12,23 @@ client.on('ready', ()=>{
 
 client.on("message", async function(message) {
     if (message.author.bot) return;
-    if (message.content === `${prefix} escudero`){
-        await message.author.send(`Esta es la lista de comandos`)
+    if (message.content.startsWith(prefix)){
+        const command = message.content
+            .slice(prefix.length)
+            .split(' ')
+            .shift()
+            .toLowerCase();  
+        if (!commandList.includes(command)) return;
+        const msg = message
+        message.delete(this.message)
+        await msg.author.send(questsReq(command))
     }
-    if (message.content === `${prefix} quests`){
-        await message.author.send(`Quests activas`)
-    }
-    // if (!message.content.startsWith(prefix)) return;
-    const commandBody = message.content.slice(prefix.length);
-    const args = commandBody.split(' ');
-    const command = args.shift().toLowerCase();
-    if (command === "[sistema]" || message.content === "[sistema]") {
-        embedReq("[Sistema Ainulindalë]")
-    }
-  });
+    if (!commandList.includes(message.content)) return;
+    const msg = message
+    message.delete(this.message)
+    await msg.author.send(questsReq(command))
+    await msg.reply(questsReq(command))
+
+});
 
 client.login(config.BOT_TOKEN, {autorun: true});

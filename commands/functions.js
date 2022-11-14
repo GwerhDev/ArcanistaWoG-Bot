@@ -1,5 +1,8 @@
+const Discord = require("discord.js");
+
+
 export async function embedReq(title){
-    const embedDatos = new Discord.MessageEmbed() 
+    const embedDatos = new Discord.MessageEmbed()
     .setTitle(title)
     .setAuthor(message.author.username, message.author.displayAvatarURL())
     .setColor(0xFFE100)
@@ -12,7 +15,11 @@ export async function embedReq(title){
     // .addField("Este es un título de campo", "Este es un valor de campo puede contener 1024 caracteres.")
     // .addField("Campo en línea", "Debajo del campo en línea",  true)
     // .addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true);
-    const msg = message
-    message.delete(this.message)
-    await msg.reply({ embed: embedDatos })
+    return { embed: embedDatos }
+}
+export async function questsReq(req){
+    if ( req === `escudero`) return `Esta es la lista de comandos`
+    if ( req === `quests`) return `Esta es la lista de comandos`
+    if ( req === `sistema`) return embedReq("[Sistema Ainulindalë]")
+
 }
