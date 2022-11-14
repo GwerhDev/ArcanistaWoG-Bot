@@ -21,14 +21,12 @@ client.on("message", async function(message) {
         if (!commandList.includes(command)) return;
         const msg = message
         message.delete(this.message)
-        await msg.author.send(questsReq(command))
+        await msg.author.send(await questsReq(command, msg))
     }
     if (!commandList.includes(message.content)) return;
     const msg = message
+    await msg.reply( await questsReq(msg.content, msg))
     message.delete(this.message)
-    await msg.author.send(questsReq(command))
-    await msg.reply(questsReq(command))
-
 });
 
 client.login(config.BOT_TOKEN, {autorun: true});
