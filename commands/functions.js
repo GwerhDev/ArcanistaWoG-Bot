@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 
-export async function embedReq(title){
+async function embedReq(title){
     const embedDatos = new Discord.MessageEmbed()
     .setTitle(title)
     .setAuthor(message.author.username, message.author.displayAvatarURL())
@@ -17,9 +17,14 @@ export async function embedReq(title){
     // .addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true);
     return { embed: embedDatos }
 }
-export async function questsReq(req){
+async function questsReq(req){
     if ( req === `escudero`) return `Esta es la lista de comandos`
     if ( req === `quests`) return `Esta es la lista de comandos`
     if ( req === `sistema`) return embedReq("[Sistema Ainulindalë]")
 
+}
+
+module.exports = {
+    embedReq,
+    questsReq
 }

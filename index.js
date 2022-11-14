@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { embedReq, questsReq } = require("./commands/functions");
+const { questsReq } = require("./commands/functions");
 const config = require("./config.json");
 const { commandList } = require("./misc/consts");
 const client = new Discord.Client();

@@ -1,6 +1,10 @@
-export const commandList = 
+const commandList = 
 [
     `escudero`,
     `quests`,
     `sistema`
 ]
+
+module.exports = {
+    commandList
+}
