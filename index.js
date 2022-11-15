@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
-const { questsReq } = require("./commands/functions");
+const { questsReq } = require("./commands/requests");
 const config = require("./config.json");
-const { commandList } = require("./misc/consts");
+const { commands } = require("./misc/consts");
+const commandList = commands.map(e=>e.cmd);
 const client = new Discord.Client();
-const prefix = "q-";
+const questPrefix = "q- ";
 
 client.on('ready', ()=>{
     const generalChannel = client.channels.cache.get("1038269083336052838")
@@ -12,21 +13,25 @@ client.on('ready', ()=>{
 
 client.on("message", async function(message) {
     if (message.author.bot) return;
-    if (message.content.startsWith(prefix)){
+    if (message.content.startsWith(questPrefix)){
         const command = message.content
-            .slice(prefix.length)
+            .slice(questPrefix.length)
             .split(' ')
             .shift()
-            .toLowerCase();  
+            .toLowerCase()
+        console.log(`${message.author.username}: ${message.content}`)
         if (!commandList.includes(command)) return;
         const msg = message
         message.delete(this.message)
         await msg.author.send(await questsReq(command, msg))
     }
-    if (!commandList.includes(message.content)) return;
-    const msg = message
-    await msg.reply( await questsReq(msg.content, msg))
-    message.delete(this.message)
+    if (commandList.includes(message.content)){
+        console.log(`${message.author.username}: ${message.content}`)
+        const msg = message
+        message.delete(this.message)
+        await msg.reply(await questsReq(msg.content, msg))
+    }
+    else return;
 });
 
 client.login(config.BOT_TOKEN, {autorun: true});

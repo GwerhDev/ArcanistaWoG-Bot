@@ -1,8 +1,7 @@
 const Discord = require("discord.js");
-const { urlList } = require("../misc/consts")
-
 
 async function embedReq(title, msg, url){
+
     const embedDatos = new Discord.MessageEmbed()
         .setTitle(title)
         .setAuthor(msg.author.username, msg.author.displayAvatarURL())
@@ -13,19 +12,17 @@ async function embedReq(title, msg, url){
         // .setThumbnail(msg.author.displayAvatarURL())
         // .setTimestamp()
         .setURL(url)
-    // .addField("Este es un título de campo", "Este es un valor de campo puede contener 1024 caracteres.")
-    // .addField("Campo en línea", "Debajo del campo en línea",  true)
-    // .addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true);
+        // .addField("Este es un título de campo", "Este es un valor de campo puede contener 1024 caracteres.")
+        // .addField("Campo en línea", "Debajo del campo en línea",  true)
+        // .addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true);
     return { embed: embedDatos }
 }
-async function questsReq(reQuest, msg){
-    if ( reQuest === `[escudero]`) return `Esta es la lista de comandos`
-    if ( reQuest === `[quests]`) return `Esta es la lista de comandos`
-    if ( reQuest === `[sistema]`) return await embedReq("[Sistema Ainulindalë]", msg, urlList.sistema)
 
+async function listsReq(res, list){
+    return `${res}${list}`
 }
 
 module.exports = {
     embedReq,
-    questsReq
+    listsReq,
 }
