@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 
 async function embedReq(title, msg, url){
-
     const embedDatos = new Discord.MessageEmbed()
         .setTitle(title)
         .setAuthor(msg.author.username, msg.author.displayAvatarURL())

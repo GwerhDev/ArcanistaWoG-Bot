@@ -4,8 +4,12 @@ const { SISTEMA } = process.env;
 const commands = 
 [   
     {
-        cmd: "[CLEAN]",
-        description: "Limpia los últimos 100 mensajes del Canal (admin)"
+        cmd: "[ayuda]",
+        description: "Lista de comandos"
+    },
+    {
+        cmd: "[quests]",
+        description: "Lista de tareas"
     },
     {
         cmd: "[sistema]",
@@ -13,12 +17,8 @@ const commands =
         url: SISTEMA
     },
     {
-        cmd: "[quests]",
-        description: "Lista de tareas"
-    },
-    {
-        cmd: "[ayuda]",
-        description: "Lista de comandos"
+        cmd: "[CLEAN]",
+        description: "Limpia los últimos 100 mensajes del Canal (admin)"
     },
 ]
 
