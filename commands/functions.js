@@ -22,6 +22,7 @@ async function listsReq(res, list){
     return `${res}${list}`
 }
 
+
 module.exports = {
     embedReq,
     listsReq,

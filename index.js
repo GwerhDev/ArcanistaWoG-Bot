@@ -1,6 +1,7 @@
+require('dotenv').config();
+const { BOT_TOKEN } = process.env;
 const Discord = require("discord.js");
 const { questsReq } = require("./commands/requests");
-const config = require("./config.json");
 const { commands } = require("./misc/consts");
 const commandList = commands.map(e=>e.cmd);
 const client = new Discord.Client();
@@ -12,6 +13,15 @@ client.on('ready', ()=>{
 })
 
 client.on("message", async function(message) {
+    if (message.content === "[CLEAN]"){
+        if(
+            message.author.username === "worldofgwerh" &&
+            message.author.discriminator==='3078' &&
+            message.channel.type!=='dm'
+            )
+        return await message.channel.bulkDelete(100, true)
+        else return await message.reply('No tienes los permisos para realizar esta acción');
+    }
     if (message.author.bot) return;
     if (message.content.startsWith(questPrefix)){
         const command = message.content
@@ -34,4 +44,4 @@ client.on("message", async function(message) {
     else return;
 });
 
-client.login(config.BOT_TOKEN, {autorun: true});
+client.login(BOT_TOKEN, {autorun: true});
