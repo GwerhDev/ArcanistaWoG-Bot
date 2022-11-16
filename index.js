@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { BOT_TOKEN } = process.env;
 const Discord = require("discord.js");
+const { menu } = require('./commands/functions');
 const { questsReq } = require("./commands/requests");
 const { commands } = require("./misc/consts");
 const commandList = commands.map(e=>e.cmd);
@@ -9,11 +10,11 @@ const questPrefix = "q- ";
 
 client.on('ready', ()=>{
     const generalChannel = client.channels.cache.get("1038269083336052838")
-    generalChannel.send(`Ha llegado el escudero`)
+    generalChannel.send(`Ha llegado el escudero`, menu())
 })
 
 client.on("message", async function(message) {
-    if (message.content === "[CLEAN]"){
+    if (message.content === "[CLEAR]"){
         if(
             message.author.username === "worldofgwerh" &&
             message.author.discriminator==='3078' &&

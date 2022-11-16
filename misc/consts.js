@@ -17,7 +17,7 @@ const commands =
         url: SISTEMA
     },
     {
-        cmd: "[CLEAN]",
+        cmd: "[CLEAR]",
         description: "Limpia los últimos 100 mensajes del Canal (admin)"
     },
 ]
