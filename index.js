@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { BOT_TOKEN } = process.env;
 const Discord = require("discord.js");
-const { menu } = require('./commands/functions');
 const { questsReq } = require("./commands/requests");
 const { commands } = require("./misc/consts");
 const commandList = commands.map(e=>e.cmd);
@@ -10,7 +9,7 @@ const questPrefix = "q- ";
 
 client.on('ready', ()=>{
     const generalChannel = client.channels.cache.get("1038269083336052838")
-    generalChannel.send(`Ha llegado el escudero`, menu())
+    generalChannel.send(`Ha llegado el escudero`)
 })
 
 client.on("message", async function(message) {
