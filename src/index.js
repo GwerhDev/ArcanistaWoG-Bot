@@ -1,47 +1,37 @@
 require('dotenv').config();
-const { Client, GatewayIntentBits} = require("discord.js");
-const { questsReq } = require("./commands/requests");
-const { commands } = require("./misc/consts");
 const { BOT_TOKEN } = require('./config');
-const commandList = commands.map(e=>e.cmd);
+const fs = require('node:fs');
+const path = require('node:path');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { execute } = require('./events/ready');
+const foldersPath = path.join(__dirname, 'commands');
+const commandFolders = fs.readdirSync(foldersPath);
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-const questPrefix = "q- ";
 
-client.on('ready', ()=>{
-    const generalChannel = client.channels.cache.get("1038269083336052838")
-    generalChannel.send(`Ha llegado el escudero`)
-})
+client.commands = new Collection();
 
-client.on("message", async function(message) {
-    if (message.content === "[CLEAR]"){
-        if(
-            message.author.username === "worldofgwerh" &&
-            message.author.discriminator==='3078' &&
-            message.channel.type!=='dm'
-            )
-        return await message.channel.bulkDelete(100, true)
-        else return await message.reply('No tienes los permisos para realizar esta acción');
-    }
-    if (message.author.bot) return;
-    if (message.content.startsWith(questPrefix)){
-        const command = message.content
-            .slice(questPrefix.length)
-            .split(' ')
-            .shift()
-            .toLowerCase()
-        console.log(`${message.author.username}: ${message.content}`)
-        if (!commandList.includes(command)) return;
-        const msg = message
-        message.delete(this.message)
-        await msg.author.send(await questsReq(command, msg))
-    }
-    if (commandList.includes(message.content)){
-        console.log(`${message.author.username}: ${message.content}`)
-        const msg = message
-        message.delete(this.message)
-        await msg.reply(await questsReq(msg.content, msg))
-    }
-    else return;
+for (const folder of commandFolders) {
+	const commandsPath = path.join(foldersPath, folder);
+	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	for (const file of commandFiles) {
+		const filePath = path.join(commandsPath, file);
+		const command = require(filePath);
+		if ('data' in command && 'execute' in command) {
+			client.commands.set(command.data.name, command);
+		} else {
+			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+		}
+	}
+};
+
+client.once(Events.ClientReady, () => {
+    execute(client);
+});
+
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isChatInputCommand()) return;
+	console.log(interaction);
 });
 
 client.login(BOT_TOKEN);
