@@ -1,5 +1,5 @@
-require('dotenv').config();
-const { SISTEMA } = process.env;
+
+const { SISTEMA } = require("../config")
 const { commands } = require("../misc/consts")
 const { embedReq, listsReq } = require("./functions")
 async function questsReq(reQuest, msg){

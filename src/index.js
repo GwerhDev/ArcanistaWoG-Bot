@@ -1,10 +1,10 @@
 require('dotenv').config();
-const { BOT_TOKEN } = process.env;
-const Discord = require("discord.js");
+const { Client, GatewayIntentBits} = require("discord.js");
 const { questsReq } = require("./commands/requests");
 const { commands } = require("./misc/consts");
+const { BOT_TOKEN } = require('./config');
 const commandList = commands.map(e=>e.cmd);
-const client = new Discord.Client();
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const questPrefix = "q- ";
 
 client.on('ready', ()=>{
@@ -44,4 +44,4 @@ client.on("message", async function(message) {
     else return;
 });
 
-client.login(BOT_TOKEN, {autorun: true});
+client.login(BOT_TOKEN);
