@@ -26,7 +26,7 @@ for (const folder of commandFolders) {
 }; 
 
 client.once(Events.ClientReady, () => {
-    execute(client);
+  execute(client);
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {

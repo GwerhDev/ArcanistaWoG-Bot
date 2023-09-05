@@ -4,8 +4,12 @@ const { SISTEMA } = require('../../config');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('sistema')
-		.setDescription('Responde el vínculo a archivo "Sistema"'),
-	execute(interaction) {
-		interaction.reply(SISTEMA);
+		.setDescription('Retorna el vínculo a archivo "Sistema"'),
+	async execute(interaction) {
+		try {
+			await interaction.reply(SISTEMA);
+		} catch (error) {
+			return error;
+		}
 	},
 };

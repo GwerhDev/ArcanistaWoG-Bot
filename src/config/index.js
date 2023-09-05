@@ -3,5 +3,6 @@ module.exports = {
   CLIENT_ID: process.env.CLIENT_ID,
   GUILD_ID: process.env.GUILD_ID,
 
-  SISTEMA: process.env.SISTEMA, 
+  SISTEMA: process.env.SISTEMA,
+  BARDOS: process.env.BARDOS,
 }
