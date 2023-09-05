@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription('Retorna el vínculo a archivo "Sistema"'),
 	async execute(interaction) {
 		try {
-			await interaction.reply(SISTEMA);
+			await interaction.reply(SISTEMA, { ephemeral: true });
 		} catch (error) {
 			return error;
 		}
