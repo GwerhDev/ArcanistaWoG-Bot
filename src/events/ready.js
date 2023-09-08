@@ -8,6 +8,6 @@ module.exports = {
 	async execute(client) {
     await guildCommands();
     const generalChannel = client.channels.cache.get(GENERAL_CHANNEL);
-    generalChannel.send(`Ha llegado el escudero`);
+    generalChannel.send(`Hola aventurero, estoy aquí para ayudarte`);
   },
 };
